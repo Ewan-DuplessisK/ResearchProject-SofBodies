@@ -80,5 +80,6 @@ private:
 	class FPSActor* fps;
 	class SpriteComponent* crosshair;
 	vector<PlaneActor*> planes;
+	class SoftBody* sB;
 };
 
