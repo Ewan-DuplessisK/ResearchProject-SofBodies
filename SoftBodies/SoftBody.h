@@ -32,4 +32,5 @@ private:
 
     void applyUniformMovement(float dt);
     void SimpleSphereResolve(float dt);
+    void applySpringConstraints(float dt);
 };

@@ -49,6 +49,23 @@ void SoftBody::SimpleSphereResolve(float dt){
     points[0].speed = center.speed;
 }
 
+//wont work for simple sphere
+void SoftBody::applySpringConstraints(float dt){
+    for(auto p : points){
+        for(auto n : p.neighbors){
+            Vector3 ab = p.position-n.point->position;
+            if(ab.length()<n.limits[0]){ //if points too close
+                float diff = n.limits[0]-ab.length();
+                ab.normalize();
+                Vector3 ba = -ab;
+                float ratio = p.speed.length()/(n.point->speed.length()*Vector3::dot(p.speed,n.point->speed)); //I think
+                p.position += ba*diff*ratio;
+                n.point->position += ab*diff*(1-ratio);
+            }
+        }
+    }
+}
+
 
 
 SoftBody::SoftBody(){
