@@ -10,7 +10,6 @@
 
 #include "FPSActor.h"
 #include "PauseScreen.h"
-
 #include "SoftBody.h"
 
 bool Game::initialize()
@@ -57,13 +56,18 @@ void Game::load()
 	dir.diffuseColor = Vector3(0.78f, 0.88f, 1.0f);
 	dir.specColor = Vector3(0.8f, 0.8f, 0.8f);
 
+	sB= new SoftBody();
+
+	actors.emplace_back(sB);
+
+	for(int i = 0; i<sB->points.size();i++){
+		PMActors.emplace_back(new DisplayPMActor);
+	}
+
 	PlaneActor* ground = new PlaneActor();
 	ground->setPosition(Vector3(0.f,0.f,-50.f));
 	ground->setScale(50.f);
 	addPlane(ground);
-
-	sB=new SoftBody();
-	actors.emplace_back(sB);
 	
 }
 

@@ -5,6 +5,7 @@
 #include "Window.h"
 #include "Vector2.h"
 #include "RendererOGL.h"
+#include "DisplayPMActor.h"
 #include "InputSystem.h"
 #include "PhysicsSystem.h"
 #include "PlaneActor.h"
@@ -80,6 +81,7 @@ private:
 	class FPSActor* fps;
 	class SpriteComponent* crosshair;
 	vector<PlaneActor*> planes;
+	vector<DisplayPMActor*> PMActors;
 	class SoftBody* sB;
 };
 

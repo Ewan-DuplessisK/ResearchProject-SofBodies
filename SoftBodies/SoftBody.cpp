@@ -13,7 +13,7 @@ void SoftBody::updateActor(float dt){
     
     Solve(dt);
 
-    std::cout<<Vector3(points[1].position-points[0].position).length()<<std::endl;
+    //std::cout<<Vector3(points[1].position-points[0].position).length()<<std::endl;
 }
 
 /*void SoftBody::applyUniformMovement(float dt){
