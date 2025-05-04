@@ -176,6 +176,50 @@ SoftBody::SoftBody(){
     s6.stiffness=10.f;
     s6.damping=1.f;
     springs.emplace_back(s6);
+    
+    //Secondary cycle, one-over
+    Spring s7;
+    s7.points[0]=&points[0];
+    s7.points[1]=&points[2];
+    s7.baseDistance=25.f;
+    s7.stiffness=20.f;
+    s7.damping=1.f;
+    springs.emplace_back(s7);
+    Spring s8;
+    s8.points[0]=&points[1];
+    s8.points[1]=&points[3];
+    s8.baseDistance=25.f;
+    s8.stiffness=10.f;
+    s8.damping=1.f;
+    springs.emplace_back(s8);
+    Spring s9;
+    s9.points[0]=&points[2];
+    s9.points[1]=&points[4];
+    s9.baseDistance=25.f;
+    s9.stiffness=10.f;
+    s9.damping=1.f;
+    springs.emplace_back(s9);
+    Spring s10;
+    s10.points[0]=&points[3];
+    s10.points[1]=&points[5];
+    s10.baseDistance=25.f;
+    s10.stiffness=20.f;
+    s10.damping=1.f;
+    springs.emplace_back(s10);
+    Spring s11;
+    s11.points[0]=&points[4];
+    s11.points[1]=&points[0];
+    s11.baseDistance=25.f;
+    s11.stiffness=10.f;
+    s11.damping=1.f;
+    springs.emplace_back(s11);
+    Spring s12;
+    s12.points[0]=&points[5];
+    s12.points[1]=&points[1];
+    s12.baseDistance=25.f;
+    s12.stiffness=10.f;
+    s12.damping=1.f;
+    springs.emplace_back(s12);
 
 
     //Pyramid
