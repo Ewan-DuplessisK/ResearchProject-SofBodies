@@ -326,3 +326,116 @@ public:
 
 	static const Matrix4 identity;
 };
+
+
+class Matrix3
+{
+public:
+    float mat[3][3];
+
+    Matrix3()
+    {
+        *this = Matrix3::identity;
+    }
+
+    explicit Matrix3(float inMat[3][3])
+    {
+        memcpy(mat, inMat, 9 * sizeof(float));
+    }
+
+	// Cast to a const float pointer
+	const float* getAsFloatPtr() const
+    {
+    	return reinterpret_cast<const float*>(&mat[0][0]);
+    }
+
+    static const Matrix3 identity;
+
+    Vector3 getColumn(int col) const
+    {
+        return Vector3(mat[0][col], mat[1][col], mat[2][col]);
+    }
+
+    void setColumn(int col, const Vector3& v)
+    {
+        mat[0][col] = v.x;
+        mat[1][col] = v.y;
+        mat[2][col] = v.z;
+    }
+
+    // Matrix multiplication
+    friend Matrix3 operator*(const Matrix3& a, const Matrix3& b)
+    {
+        Matrix3 result;
+        for (int i = 0; i < 3; ++i) {       // row
+            for (int j = 0; j < 3; ++j) {   // column
+                result.mat[i][j] =
+                    a.mat[i][0] * b.mat[0][j] +
+                    a.mat[i][1] * b.mat[1][j] +
+                    a.mat[i][2] * b.mat[2][j];
+            }
+        }
+        return result;
+    }
+
+    Matrix3& operator*=(const Matrix3& right)
+    {
+        *this = *this * right;
+        return *this;
+    }
+
+    // Orthonormalize columns (Gram-Schmidt)
+    Matrix3 orthonormalized() const
+    {
+        Matrix3 result;
+
+        Vector3 x = getColumn(0).normalized();
+        Vector3 y = (getColumn(1) - x * Vector3::dot(getColumn(1), x)).normalized();
+        Vector3 z = Vector3::cross(x, y); // ensures a right-handed basis
+
+        result.setColumn(0, x);
+        result.setColumn(1, y);
+        result.setColumn(2, z);
+
+        return result;
+    }
+
+    // Outer product of two vectors: returns a matrix
+    static Matrix3 outerProduct(const Vector3& a, const Vector3& b)
+    {
+        Matrix3 result;
+        result.mat[0][0] = a.x * b.x;
+        result.mat[0][1] = a.x * b.y;
+        result.mat[0][2] = a.x * b.z;
+
+        result.mat[1][0] = a.y * b.x;
+        result.mat[1][1] = a.y * b.y;
+        result.mat[1][2] = a.y * b.z;
+
+        result.mat[2][0] = a.z * b.x;
+        result.mat[2][1] = a.z * b.y;
+        result.mat[2][2] = a.z * b.z;
+
+        return result;
+    }
+
+    Matrix3& operator+=(const Matrix3& other)
+    {
+        for (int r = 0; r < 3; ++r)
+            for (int c = 0; c < 3; ++c)
+                mat[r][c] += other.mat[r][c];
+        return *this;
+    }
+
+    void zero()
+    {
+        memset(mat, 0, 9 * sizeof(float));
+    }
+
+	Matrix3 polarDecomposition() const {
+    	// Placeholder: just orthonormalize columns using Gram-Schmidt
+    	Matrix3 R = *this;
+    	R=R.orthonormalized();
+    	return R;
+    }
+};

@@ -122,3 +122,19 @@ void Matrix4::invert()
 		}
 	}
 }
+
+const Matrix3 Matrix3::identity = [] {
+	Matrix3 m;
+	m.mat[0][0] = 1.0f;
+	m.mat[0][1] = 0.0f;
+	m.mat[0][2] = 0.0f;
+
+	m.mat[1][0] = 0.0f;
+	m.mat[1][1] = 1.0f;
+	m.mat[1][2] = 0.0f;
+
+	m.mat[2][0] = 0.0f;
+	m.mat[2][1] = 0.0f;
+	m.mat[2][2] = 1.0f;
+	return m;
+}();

@@ -37,6 +37,15 @@ void Vector3::normalize()
 	z /= len;
 }
 
+Vector3 Vector3::normalized(){
+	Vector3 norm = Vector3{this->x,this->y,this->z};
+	float len = norm.length();
+	norm.x /= len;
+	norm.y /= len;
+	norm.z /= len;
+	return norm;
+}
+
 Vector3 Vector3::transform(const Vector3& vec, const Matrix4& mat, float w)
 {
 	Vector3 retVal;
@@ -77,3 +86,4 @@ Vector3 Vector3::transform(const Vector3& v, const Quaternion& q)
 	retVal += 2.0f * Vector3::cross(qv, Vector3::cross(qv, v) + q.w * v);
 	return retVal;
 }
+

@@ -17,6 +17,7 @@ public:
 	float lengthSq() const;
 	float length() const;
 	void normalize();
+	Vector3 normalized();
 
 	const float* getAsFloatPtr() const
 	{

@@ -25,6 +25,7 @@ public:
 	void addSprite(class SpriteComponent* sprite);
 	void removeSprite(class SpriteComponent* sprite);
 	void drawSprite(const class Actor& actor, const class Texture& tex, struct Rectangle srcRect, Vector2 origin, Flip flip) const;
+	void drawDebugSoftBody();
 
 	void addMesh(class MeshComponent* mesh);
 	void removeMesh(class MeshComponent* mesh);
@@ -43,6 +44,8 @@ public:
 	// z = [0, 1) -- 0 is closer to camera, 1 is further
 	Vector3 unproject(const Vector3& screenPoint) const;
 	void getScreenDirection(Vector3& outStart, Vector3& outDir) const;
+
+	Matrix4 getViewProj(){return view*projection;}
 
 private:
 	void drawMeshes();

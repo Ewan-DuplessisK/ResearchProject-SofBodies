@@ -11,6 +11,8 @@
 #include <GL/glew.h>
 #include <SDL_image.h>
 
+#include "SoftBody.h"
+
 RendererOGL::RendererOGL():
 	window(nullptr),
 	context(nullptr),
@@ -81,6 +83,7 @@ void RendererOGL::beginDraw()
 void RendererOGL::draw()
 {
 	drawMeshes();
+	drawDebugSoftBody();
 	drawSprites();
 	drawUI();
 }
@@ -200,6 +203,10 @@ void RendererOGL::drawSprite(const Actor& actor, const Texture& tex, Rectangle s
 	Assets::getShader("Sprite").setMatrix4("uWorldTransform", world);
 	tex.setActive();
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
+}
+
+void RendererOGL::drawDebugSoftBody(){
+	Game::instance().sB->Draw();
 }
 
 void RendererOGL::addMesh(MeshComponent* mesh)

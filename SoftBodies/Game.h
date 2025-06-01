@@ -32,7 +32,7 @@ public:
 	Game& operator=(Game&&) = delete;
 
 private:
-	Game() : state(GameState::Gameplay), isUpdatingActors(false), fps(nullptr), crosshair(nullptr) {}
+	Game() : state(GameState::Gameplay), isUpdatingActors(false), /*fps(nullptr),*/ crosshair(nullptr) {}
 
 public:
 	bool initialize();
@@ -58,6 +58,8 @@ public:
 	void removePlane(class PlaneActor* plane);
 	vector<PlaneActor*>& getPlanes() { return planes; }
 	class FPSActor* getPlayer() { return fps; }
+	
+	class SoftBody* sB;
 
 private:
 	void processInput();
@@ -82,6 +84,5 @@ private:
 	class SpriteComponent* crosshair;
 	vector<PlaneActor*> planes;
 	vector<DisplayPMActor*> PMActors;
-	class SoftBody* sB;
 };
 

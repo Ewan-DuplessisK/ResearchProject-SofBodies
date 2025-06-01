@@ -11,6 +11,7 @@
 #include "FPSActor.h"
 #include "PauseScreen.h"
 #include "SoftBody.h"
+#include "SpriteActor.h"
 
 bool Game::initialize()
 {
@@ -32,7 +33,7 @@ void Game::load()
 	Assets::loadShader("Res\\Shaders\\BasicMesh.vert", "Res\\Shaders\\BasicMesh.frag", "", "", "", "BasicMesh");
 
 	Assets::loadTexture(renderer, "Res\\Textures\\Default.png", "Default");
-	//Assets::loadTexture(renderer, "Res\\Textures\\Cube.png", "Cube");
+	Assets::loadTexture(renderer, "Res\\Textures\\Cube.png", "Cube");
 	Assets::loadTexture(renderer, "Res\\Textures\\Plane.png", "Plane");
 	Assets::loadTexture(renderer, "Res\\Textures\\Sphere.png", "Sphere");
 	Assets::loadTexture(renderer, "Res\\Textures\\ButtonYellow.png", "ButtonYellow");
@@ -59,11 +60,15 @@ void Game::load()
 	sB= new SoftBody();
 
 	actors.emplace_back(sB);
+	
 
-	for(int i = 0; i<sB->points.size();i++){
+	/*for(int i = 0; i<sB->points.size();i++){
 		PMActors.emplace_back(new DisplayPMActor);
-	}
+	}*/
 
+	/*DisplayPMActor* test = new DisplayPMActor();
+	test->setPosition(Vector3{50.f,0.f,-50.f});*/
+	
 	PlaneActor* ground = new PlaneActor();
 	ground->setPosition(Vector3(0.f,0.f,-50.f));
 	ground->setScale(50.f);
@@ -114,14 +119,16 @@ void Game::processInput()
 
 void Game::update(float dt)
 {
+	sB->update(dt);
+	
 
 	if (state == GameState::Gameplay)
 	{
 		// Update actors 
 		isUpdatingActors = true;
-		for(int i=0;i<sB->points.size();i++){
-			PMActors[i]->setPosition(sB->points[i].position+Vector3(50.f,0.f,0.f));
-		}
+		/*for(int i=0;i<sB->points.size();i++){
+			PMActors[i]->setPosition(sB->points[i].position+Vector3(0.f,0.f,0.f));
+		}*/
 		for (auto actor : actors)
 		{
 			actor->update(dt);
